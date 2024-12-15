@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let answers = ["елка", "ель", "елочка", "ёлка", "ёлочка"];
+        let userAnswer = prompt("Зимой и летом одним цветом").toLowerCase();
+        console.log(userAnswer);
+
+        function checkTheAnswer(answer, answers) {
+            for (let i = 0; i < answers.length; i++) {
+                if (answer === answers[i]) {
+                    return alert("Ура! Вы угадали!");
+                }
+            }
+            return alert("Неправильно!");
+        }
+
+        if (!userAnswer) {
+            alert("Вы ничего не ввели!");
+        } else {
+            checkTheAnswer(userAnswer, answers);
+        }
+    </script>
+</body>
+
+</html>
