@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" data-number="100">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text" data-number="50">
+                Some quick example text to build on the card title and make
+                up the bulk
+                of the card's
+                content.
+            </p>
+            <a href="#" id="super_link" class="card-link">Card link</a>
+            <a href="#" class="card-link" data-number="50">Another link</a>
+        </div>
+    </div>
+
+    <script>
+        // Task 1
+        const superLink = document.getElementById('super_link');
+        console.log(superLink);
+
+        // Task 2
+        const linkList = document.querySelectorAll('.card-link')
+        for (let i = 0; i < linkList.length; i++) {
+            linkList[i].textContent = 'Ссылка';
+        }
+
+        // Task 3
+        console.log(document.querySelector('.card-body').querySelectorAll('.card-link'));
+
+        // Task 4
+        const firstDataNumber50 = document.querySelector('[data-number="50"]')
+        console.log(firstDataNumber50);
+
+        // Task 5
+        // console.log(document.querySelector('.card-title').textContent);
+        const titleTag = document.querySelector('title');
+        console.log(titleTag ? titleTag.textContent : "Тег title не найден");
+
+        // Task 6
+        console.log(document.querySelector('.card-title').parentNode);
+
+        // Task 7
+        const parEl = document.createElement('p');
+        parEl.textContent = 'Привет';
+        const card = document.querySelector('.card')
+        card.insertBefore(parEl, card.firstChild);
+
+        // Task 8
+        const h6El = document.querySelector('h6');
+        if (h6El) {
+            h6El.remove()
+        };
+
+    </script>
+</body>
+
+</html>
