@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple page</title>
+</head>
+
+<body>
+    <section>
+        <p>
+            Text node example with
+            <a id="myLink" href="https://example.com" >
+                reference
+            </a>
+        </p>
+        <!-- <img src="image.png" alt="Image example"> -->
+    </section>
+
+    <script>
+        const link = document.querySelector('a')
+        link.textContent = 'New reference text'
+        link.href = 'https://google.com'
+
+        const sectionElement = document.querySelector('section');
+        const paragraphElement = document.createElement('p');
+
+        paragraphElement.textContent = 'New paragraph text ';
+        sectionElement.appendChild(paragraphElement);
+
+        const paragraphElementText = document.createTextNode('Text node content');
+        paragraphElement.appendChild(paragraphElementText);
+
+        const sectionElementClone = sectionElement.cloneNode(true);
+        const linkClone = sectionElementClone.querySelector('#myLink');
+        linkClone.id = 'myLinkClone';
+        linkClone.textContent = 'Clone reference text';
+        const paragraphElementCloneFirst = sectionElementClone.querySelectorAll('p')[0];
+        const paragraphElementCloneSecond = sectionElementClone.querySelectorAll('p')[1];
+        paragraphElementCloneFirst.textContent = 'Clone text node example ';
+        paragraphElementCloneFirst.appendChild(linkClone);
+        paragraphElementCloneSecond.textContent = 'Clone parargraph text Clone text node content';
+        document.body.appendChild(sectionElementClone);
+
+        /* sectionElementClone.parentNode.removeChild(sectionElementClone);
+        sectionElementClone.remove(); */
+
+        const divElement = document.createElement('div');
+        const paragraphElementNew = document.createElement('p');
+        divElement.appendChild(paragraphElementNew);
+        document.querySelector('body').appendChild(divElement);
+
+        const spanElement = document.createElement('span');
+        spanElement.textContent = 'span text';
+        const strongElement = document.createElement('strong');
+        strongElement.textContent = 'strong text';
+        paragraphElementNew.appendChild(spanElement);
+        spanElement.replaceWith(strongElement);
+        // paragraphElementNew.appendChild(strongElement)
+        // paragraphElementNew.replaceWith(spanElement, strongElement)
+        // paragraphElementNew.replaceChild(strongElement, spanElement)
+
+        // console.log(divElement.outerHTML);
+
+        const divElementProduct = document.createElement('div');
+        document.querySelector('body').appendChild(divElementProduct);
+
+        const imgElement = document.createElement('img');
+        imgElement.classList.add('product__img');
+        imgElement.width = 250;
+        imgElement.height = 350;
+        imgElement.src = 'img/photo1.jpg';
+        imgElement.alt = 'photo product';
+        divElementProduct.appendChild(imgElement);
+
+        const headerElement = document.createElement('h3');
+        headerElement.textContent = 'Name of the T-shirt';
+        divElementProduct.appendChild(headerElement);
+
+        const paragraphElementProduct = document.createElement('p');
+        paragraphElementProduct.textContent = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi, \
+reiciendis!'
+        divElementProduct.appendChild(paragraphElementProduct)
+
+        const buttonElement = document.createElement('button');
+        buttonElement.classList.add('button');
+        buttonElement.textContent =  'Buy';
+        divElementProduct.appendChild(buttonElement);
+
+        /* const buttonEl = document.querySelector('.button');
+        const productImg = document.querySelector('.product__img'); */
+
+        imgElement.onclick = function() {
+            imgElement.src = 'img/photo2.png';
+        };
+
+        buttonElement.onclick = function() {
+            buttonElement.textContent = 'Товар добавлен в корзину';
+        };
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop001</title>
+</head>
+
+<body>
+    <div id="block">
+        <p>1</p>
+        <p>2</p>
+    </div>
+
+    <script>
+        const p1El = document.querySelector('#block p:first-child');
+
+        console.log(p1El);
+
+        const firstParagraphElement = document.querySelectorAll('p')[0];
+        const anotherFirstParagraphElement = document.querySelector('#block').querySelectorAll('p')[0];
+
+        console.log(firstParagraphElement);
+        console.log(anotherFirstParagraphElement);
+
+        const paragraphElement1 = document.createElement('p');
+        paragraphElement1.classList.add('www');
+        paragraphElement1.textContent = 'text 1';
+        const paragraphElement2 = document.createElement('p');
+        paragraphElement2.textContent = 'text 2';
+        paragraphElement2.classList.add('www');
+        document.querySelector('#block').append(paragraphElement1, paragraphElement2);
+
+        console.log(document.querySelector('.www:first-of-type'));
+        console.log(document.querySelector('#block').querySelectorAll('.www')[0]);
+
+        const link = document.createElement('a');
+        link.classList.add('link');
+        link.href = '#';
+        link.textContent = 'link text html';
+        document.querySelector('body').appendChild(link);
+
+        document.querySelector('.link').textContent = 'link text js';
+        link.href = 'https://developer.mozilla.org/ru';
+
+        const imgEl = document.createElement('img')
+        document.querySelector('body').appendChild(imgEl);
+        imgEl.classList.add('photo');
+        imgEl.alt = "Shattered veil from reddit";
+        imgEl.src = 'https://i.redd.it/j2n7bsu62bse1.jpeg';
+
+        const divEl = document.createElement('div');
+        divEl.classList.add('content');
+        const parEl = document.createElement('p');
+        parEl.textContent = 'Новый текстовый элемент';
+        divEl.appendChild(parEl);
+
+        document.querySelector('body').appendChild(divEl);
+
+        // parEl.remove();
+        divEl.removeChild(parEl);
+
+        const buttonEl = document.createElement('button');
+        buttonEl.textContent = 'Counter';
+        divEl.appendChild(buttonEl);
+        
+        let cnt = 0;
+        buttonEl.onclick = function() {
+            console.log(++cnt);
+        }
+
+        buttonEl.addEventListener('click', function (e) {
+            buttonEl.textContent = cnt;
+        });
+
+        const buttonEl2 = document.createElement('button');
+        buttonEl2.textContent = 'Send';
+
+        divEl.appendChild(buttonEl2);
+
+        let sendCnt = 0;
+        buttonEl2.addEventListener('click', function (e) {
+            ++sendCnt;
+            if (sendCnt === 1) {
+                buttonEl2.textContent = 'The text has been sent';
+            }
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>
