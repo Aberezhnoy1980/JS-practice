@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример использования DOM коллекций</title>
+</head>
+<body>
+    <div>
+        <p>Первый параграф</p>
+        <p>Второй параграф</p>
+        <p>Третий параграф</p>
+    </div>
+
+    <script>
+        const divElement = document.querySelector('div');
+        console.log(divElement.childNodes.length); // 7
+        console.log(divElement.children.length); //  3
+
+        /*Посмотрим, какие элементы содержатся в каждой коллекции. Чтобы перебрать элементы,
+        сначала преобразуем коллекции в массивы с помощью статического метода Array.from или
+        оператора spread.*/
+        Array.from(divElement.childNodes).forEach((childNode) => {
+            console.log('childNode "%s" типа "%d"', childNode.nodeName, childNode.nodeType);
+        });
+
+        [...divElement.children].forEach((child) => {
+            console.log('child "%s" типа "%d"', child.nodeName, child.nodeType);
+        });
+
+        const allParagraphElements = document.querySelectorAll('p');
+        console.log('Static NodeList длина до: %d', allParagraphElements.length);
+        console.log('Dynamic NodeList длина до: %d', divElement.childNodes.length);
+        console.log('HTMLcollection длина до: %d', divElement.children.length);
+
+        const fourthParagrapfElement = document.createElement('p');
+        fourthParagrapfElement.textContent = 'Четвертый параграф';
+        divElement.appendChild(fourthParagrapfElement)
+
+        console.log('Static NodeList длина до: %d', allParagraphElements.length);
+        console.log('Dynamic NodeList длина до: %d', divElement.childNodes.length);
+        console.log('HTMLcollection длина до: %d', divElement.children.length);
+        /*Статичный NodeList, возвращаемый из метода querySelectorAll, не меняет размер при
+        добавлении новых нод в DOM, в отличие от динамических NodeList и HTMLCollection.*/
+
+        console.log(document.body.parentNode) // Элемент <html
+        console.log(document.body.parentElement); // Элемент <html>
+        console.log(document.documentElement.parentNode); // Нода document
+        console.log(document.documentElement.parentElement); // null
+        console.log(document.documentElement.parentNode === document); // true
+        console.log(document.documentElement.parentElement === document); // false
+
+    </script>
+    
+</body>
+</html>

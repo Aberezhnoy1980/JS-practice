@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work with DOM</title>
+    <style>
+        .paragraph {
+            color: white;
+            background-color: black;
+            padding: 10px;
+            width: 250px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const divElement = document.createElement('div');
+        const root = document.querySelector('body');
+        root.insertBefore(divElement, root.firstChild);
+        const paragraphElement = document.createElement('p');
+        paragraphElement.textContent = 'Some text';
+        divElement.appendChild(paragraphElement);
+
+        /* paragraphElement.style.color = 'white';
+        paragraphElement.style.backgroundColor = 'black';
+        paragraphElement.style.padding = '10px';
+        paragraphElement.style.width = '250px';
+        paragraphElement.style.textAlign = 'center'; */
+
+        paragraphElement.setAttribute('class', 'paragraph');
+        // paragraphElement.className = 'paragraph';
+        // paragraphElement.classList.add('paragraph');
+
+        const studentGroup1PracticeTime = [
+            {
+                firstName: "Ivanov",
+                practiceTime: 56
+            },
+            {
+                firstName: "Petrov",
+                practiceTime: 120
+            },
+            {
+                firstName: "Sidorov",
+                practiceTime: 148
+            },
+            {
+                firstName: "Belkin",
+                practiceTime: 20
+            },
+            {
+                firstName: "Avdeev",
+                practiceTime: 160
+            }
+        ];
+
+        const studentGroup2PracticeTime = [
+            {
+                firstName: "Mankov",
+                practiceTime: 87
+            },
+            {
+                firstName: "kistin",
+                practiceTime: 133
+            },
+            {
+                firstName: "Kotlyarov",
+                practiceTime: 140
+            },
+            {
+                firstName: "Peskov",
+                practiceTime: 10
+            }
+        ];
+
+        /* Напишем не очень удобную, но показательную функцию, которая умеет принимать
+        неограниченное число аргументов и находить максимум среди них. Функция должна
+        вызываться подобным образом: const maximum = findMax(4, 7, 10); */
+        function findMax() {
+            const values = arguments; 
+            /* arguments — переменная, которая доступна внутри каждой
+            функции и содержит в себе все аргументы, переданные в функцию. Является
+            псевдомассивом */
+
+            let maxValue = -Infinity;
+            /* Поскольку arguments является псевдомассивом, мы не можем применять к нему новые
+            методы массивов, такие как forEach или reduce, а будем итерировать по старинке.*/
+
+            for (let index = 0; index < values.length; index++) {
+                if (values[index] > maxValue) maxValue = values[index];
+            }
+
+            return maxValue;
+        };
+
+        /*Мы должны передавать в функции только числа, а в наших массивах содержатся
+        объекты, поэтому сначала создадим массивы только со значениями времени, отработанного
+        студентами.*/
+        const group1PracticeTime = studentGroup1PracticeTime.map((student) => student.practiceTime)
+        const group2PracticeTime = studentGroup2PracticeTime.map((student) => student.practiceTime)
+
+        /*Теперь можем вызывать функцию поиска максимального значения. Она принимает
+        множество числовых аргументов, а у нас есть только массив — тут нам и поможет оператор
+        spread.*/
+        const maxTimeFromGroup1 = findMax(...group1PracticeTime);
+        /*...group1PracticeTime вытянет из массива все элементы и передаст их в функцию как отдельные переменные.
+        Это аналогично страшной и неудобной записи:
+        findMax(group1PracticeTime[0], group1PracticeTime[1], group1PracticeTime[2], group1PracticeTime[3], group1PracticeTime[4])*/
+
+        console.log(maxTimeFromGroup1); // 160
+        console.log(findMax(...group2PracticeTime)); // 140
+
+        /*Давайте также найдём максимально отработанное время среди двух групп. Мы можем
+        сделать это, передав данные обоих массивов в функцию таким образом:*/
+        findMax(...group1PracticeTime, ...group2PracticeTime);
+
+        /*А можем объединить два массива в один — это очень частая операция, и оператор
+        расширения (spread) очень в этом помогает.*/
+        const bothGroupsTime = [...group1PracticeTime, ...group2PracticeTime];
+
+        /*Для объединения двух массивов нам нужно вытащить их элементы в один общий
+        массив, поэтому мы объявляем новый массив, а в качестве его элементов делаем
+        расширение элементов первого и второго массива. Также мы могли бы добавить в него и
+        другие элементы.*/
+
+        const maxTimeBothGroups = findMax(...bothGroupsTime);
+        console.log(maxTimeBothGroups); // 160
+
+        function findMax2(...values) {
+            /* тут мы принимаем все переданные аргументы и с помощью rest-оператора упаковываем 
+            их в массив values. На этот раз values — уже настоящий массив, и мы можем использовать 
+            reduce для итерации по нему и для нахождения максимального числа.*/
+            return values.reduce((acc, value) => {
+                if (value > acc) return value;
+                return acc;
+            }, -Infinity);
+        };
+
+        console.log("Max from second function: " + findMax2(...bothGroupsTime));
+
+        const saveFullNameInDB = (firstName, lastName, ...additionals) => {
+            saveFirstName(firstNmae);
+            saveLastName(lastName);
+            saveAdditionals(additionals);
+            /*Благодаря rest оператору мы смогли собрать все
+            дополнительные данные, которые были переданы для сохранения в базе данных, и можем
+            передать их одним массивом в функцию сохранения дополнительных данных.*/
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="block">
+
+    </div>
+    <div class="elem">
+        <img src="../web006_DOM_intro/img/photo1.jpg" alt="photo">
+        <div class="content">
+            <h2 class="heading">Lorem, ipsum dolor</h2>
+            <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, ea!</p>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="elem">
+            <div class="info">
+                <h2 class="subtitle">Lorem, ipsum dolor.</h2>
+            </div>
+        </div>
+    </div>
+
+    <form action="#">
+        <input type="text">
+        <button class="btn">Send</button>
+    </form>
+
+    <script>
+        const divEl = document.createElement('div');
+        divEl.className = 'item';
+        document.querySelector('.block').appendChild(divEl);
+        const parEl = document.createElement('p');
+        parEl.textContent = 'Элемент внутри';
+        divEl.appendChild(parEl);
+
+        parEl.style.color = 'blue';
+        parEl.style.backgroundColor = '#f8f8f8';
+        parEl.style.border = '1px solid black';
+        parEl.style.padding = '16px';
+        parEl.setAttribute('class', 'item_1');
+
+        /* Task 2:
+        Необходимо с помощью querySelector найти параграф с классом text
+        Вывести в консоль соседний элемент h2
+        Вывести в консоль родительский элемент content
+        Вывести в консоль картинку
+        Вывести в консоль родительский элемент elem
+        */
+
+        const textParagraph = document.querySelector('.text');
+        console.log("Соседний элемент h2: %s", textParagraph.previousElementSibling.nodeName);
+        console.log("Родительский элемент content: %s", textParagraph.parentElement.className);
+        console.log("Картинка: %s", textParagraph.parentElement.previousElementSibling.nodeName);
+        console.log("Родительский элемент elem: %s", textParagraph.parentElement.parentElement.className);
+
+        /* Task 3
+        С помощью querySelector найти элемент h2 и вывести в консоль всех его родителей
+        */
+
+        /* 
+        console.log(document.querySelector('.subtitle').parentElement);
+        console.log(document.querySelector('.subtitle').parentElement.parentElement);
+        console.log(document.querySelector('.subtitle').parentElement.parentElement.parentElement);
+        console.log(document.querySelector('.subtitle').parentElement.parentElement.parentElement.parentElement);
+        console.log(document.querySelector('.subtitle').parentElement.parentElement.parentElement.parentElement.parentElement);
+        */
+
+        let subtitleElement = document.querySelector('.subtitle');
+
+        while (subtitleElement) {
+            subtitleElement = subtitleElement.parentElement
+            console.log(subtitleElement);
+        }
+
+        /* Task 4
+        Дано поле ввода и кнопка отправить, необходим реализовать функционал, если пользователь нажимает на кнопку отправить, 
+        а поле ввода пустое, то под полем ввода и кнопкой должен появиться заголовок h2 с текстом вы не заполнили поле ввода
+        Цвет у рамки сделать красным
+        */
+
+        const formoEl = document.querySelector('form');
+        const inputEl = formoEl.querySelector('input');
+        const btnEl = formoEl.querySelector('.btn');
+
+        const h2El = document.createElement('h2');
+        h2El.textContent = 'Вы не заполнили поле ввода!';
+
+        btnEl.addEventListener('click', function (e) {
+            h2El.remove();
+            if (inputEl.value) {
+                inputEl.style.border = '1px solid black';
+                alert('The message has sent successfully');
+            } else {
+                inputEl.style.border = '1px solid red';
+                formoEl.insertBefore(h2El, formoEl.lastChild);
+            }
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>
