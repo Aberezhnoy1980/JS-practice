@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Семинар Основы событий в JavaScript</title>
+    <style>
+        .btns {
+            display: flex;
+            flex-direction: column;
+            max-width: 100px;
+        }
+
+        .btn_styled {
+            background-color: red;
+            color: white;
+            border: 2px solid green;
+        }
+
+        .btn-marg {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>Кнопка</button>
+
+    <div class="btns">
+        <button>Кнопка-1</button>
+        <button>Кнопка-2</button>
+        <button>Кнопка-3</button>
+    </div>
+
+    <ul class="list">
+        <li class="item">item-1</li>
+        <li class="item">item-2</li>
+        <li class="item">item-3</li>
+    </ul>
+
+    <script>
+        /*
+        В html создать кнопку button
+        После загрузки страницы вывести в консоль текст “страница загрузилась”
+        Добавить событие onclick которое выводит в консоль текст “событие onclick”
+        Добавить событие addEventListener которое выводит в консоль текст “событие addEventListener”
+        */
+        window.addEventListener('load', (event) => {
+            console.log('Страница загрузилась');
+        });
+
+        const btnEl = document.querySelector('button');
+
+        btnEl.onclick = (e) => {
+            console.log('Событие click');
+        }
+
+        btnEl.addEventListener('click', (e) => {
+            console.log('Событие addEventListener');
+        });
+
+        /*
+        Создать в html три кнопки button с нумерацией (1, 2, 3 соответственно)
+        Добавить клик на кнопку , чтобы в консоль выводилась именно та кнопка на которую мы нажали
+        Добавить кнопку button с текстом 4, которая считает сколько раз на нее нажали и количество нажатий на эту кнопку выводит в консоль
+        Создать кнопку button с текстом 5, При клике на которую, меняется текст данной кнопки на “Вы нажали на эту кнопку”
+        */
+
+        const divEl = document.querySelector('.btns');
+        const btns = [...divEl.children];
+        btns.forEach(btn => btn.classList.add(...['btn_styled', 'btn-marg']));
+
+        divEl.addEventListener('click', (e) => {
+            console.log(e.target.textContent);
+        });
+
+        let count = 0;
+
+        const btn4El = document.createElement('button');
+        btn4El.classList.add('btn_styled');
+        btn4El.classList.add('btn-marg');
+        btn4El.textContent = '4';
+        divEl.append(btn4El);
+
+        btn4El.addEventListener('click', (e) => {
+            console.log(`Количество нажатий: ${++count}`);
+        });
+
+        const btn5El = document.createElement('button');
+        btn5El.textContent = '5';
+        btn5El.classList.add('btn_styled');
+        btn5El.classList.add('btn-marg');
+        divEl.append(btn5El);
+
+        btn5El.addEventListener('click', (e) => {
+            btn5El.textContent = 'Вы нажали на эту кнопку';
+        });
+
+        /*
+        Создать кнопку, которая добавляем заголовок h1 с текстом, “Новый заголовок, данный элемент нужно расположить после кнопки
+        Создать вторую кнопку, которая будет удалять созданный заголовок h1
+        Создать третью кнопку, при наведении на которую в консоль будет выводиться текст “вы навели на данную кнопку” , как только вы убираем курсор мыши с кнопки, в консоли должен появиться текст “Наведения на кнопку больше нет”
+        */
+
+        const createBtnEl = document.createElement('button');
+        createBtnEl.textContent = 'Создать заголовок';
+        createBtnEl.classList.add('btn-marg');
+        const scriptEl = document.querySelector('script')
+        document.querySelector('body').insertBefore(createBtnEl, scriptEl);
+
+        createBtnEl.addEventListener('click', (e) => {
+            const h1El = document.createElement('h1');
+            h1El.id = 'header';
+            h1El.textContent = 'Новый заголовок';
+            createBtnEl.insertAdjacentElement('afterEnd', h1El);
+        });
+
+        const delBtnEl = document.createElement('button');
+        delBtnEl.textContent = 'Удалить заголовок';
+        delBtnEl.classList.add('btn-marg');
+        delBtnEl.style.display = 'block';
+        document.body.insertBefore(delBtnEl, scriptEl)
+
+        delBtnEl.addEventListener('click', () => {
+            const delEl = document.querySelector('#header');
+            delEl ? delEl.remove() : console.log('Элемент для удаления отсутствует');
+        });
+
+        const overBtnEl = document.createElement('button');
+        overBtnEl.style.display = 'block';
+        overBtnEl.classList.add('btn-marg');
+        overBtnEl.textContent = 'Sensetive btn';
+        document.body.insertBefore(overBtnEl, scriptEl);
+
+        const mOv = () => {
+            console.log('вы навели на данную кнопку');
+            overBtnEl.style.backgroundColor = 'red';
+            overBtnEl.style.color = 'white';
+        }
+
+        const mLv = () => {
+            console.log('Наведения на кнопку больше нет');
+            overBtnEl.style.removeProperty('background-color');
+            overBtnEl.style.removeProperty('color');
+        }
+
+        overBtnEl.addEventListener('mouseover', mOv);
+        overBtnEl.addEventListener('mouseout', mLv);
+
+        /*
+        Создать в html список состоящий из 3-х произвольных элементов li
+        Нужно создать кнопку которая будет добавлять элементы списка с текстом “новый элемент списка”
+        Создать кнопку, которая будет удалять первый элемент из созданного списка
+        Создать кнопку, при клике на которую ей добавляется класс “click”
+        */
+
+        const listEl = document.querySelector('.list');
+        listEl.parentElement.insertBefore(listEl, scriptEl);
+        const addEl = document.createElement('button');
+        addEl.textContent = 'Добавить элемент';
+        addEl.classList.add('btn-marg');
+        addEl.style.display = 'block';
+        document.body.insertBefore(addEl, scriptEl);
+
+        addEl.addEventListener('click', () => {
+            const newListEl = document.createElement('li');
+            newListEl.textContent = 'Новый элемент списка';
+            listEl.append(newListEl)
+        });
+
+        const delFirstEl = document.createElement('button');
+        delFirstEl.textContent = 'Удалить первый элемент списка';
+        delFirstEl.classList.add('btn-marg');
+        document.body.insertBefore(delFirstEl, scriptEl);
+
+        delFirstEl.addEventListener('click', () => {
+            const delEl = listEl.firstElementChild;
+            console.log(`Удаляем элемент ${delEl.textContent}`);
+            delEl.remove();
+        });
+
+        const btnWClassEl = document.createElement('button');
+        btnWClassEl.textContent = 'Добавьте класс click';
+        btnWClassEl.classList.add('btn-marg');
+        btnWClassEl.style.display = 'block';
+        document.body.insertBefore(btnWClassEl, scriptEl);
+
+        btnWClassEl.addEventListener('click', () => {
+            btnWClassEl.classList.add('click');
+            console.log(`Для кнопки "${btnWClassEl.textContent}" добавлен класс "${btnWClassEl.className}"`);
+        });
+
+        /*
+        Дан тег <div class="content"></div> 
+        Создайте с помощью javascript новый элемент button
+        Добавьте текст для кнопки “Отправить”
+        При клике на данную кнопку необходимо чтобы текст поменялся на “Текст отправлен”
+        */
+
+        const divSendEl = document.createElement('div');
+        divSendEl.classList.add('content');
+        divSendEl.style.marginTop = '10px';
+        document.body.insertBefore(divSendEl, scriptEl);
+
+        const sendBtnEl = document.createElement('button');
+        sendBtnEl.textContent = 'Отправить';
+        divSendEl.append(sendBtnEl);
+
+        sendBtnEl.addEventListener('click', () => {
+            sendBtnEl.textContent = 'Текст отправлен';
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>

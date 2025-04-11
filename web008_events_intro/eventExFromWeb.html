@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Примеры работы с событиями с лекции</title>
+</head>
+
+<body>
+
+    <h1>Lorem, ipsum dolor.</h1>
+    <button class="btn">Кнопошка</button>
+    <br>
+    <a href="https://yandex.ru" class="link">Yandex</a>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, dignissimos nam facere quisquam voluptate id?</p>
+
+    <form action="#">
+        <input type="text">
+        <div class="error"></div>
+        <button type="submit">Go!</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function (e) {
+            console.log('loaded');
+        });
+
+        window.addEventListener('load', function (e) {
+            console.log('все загрузилось');
+        });
+
+        /* 
+        window.onbeforeunload = function() {
+            return false;
+        };
+        */
+
+        const btnEl = document.querySelector('button');
+
+        btnEl.addEventListener('mouseover', function (e) {
+            console.log('Не нужно наводить, ты лучше нажми');
+        });
+
+        btnEl.addEventListener('mouseleave', function (e) {
+            console.log('Не убегай!');
+        });
+
+        window.addEventListener('keydown', function (e) {
+            console.log(e.key);
+        })
+
+        const linkEl = document.querySelector('.link');
+
+        linkEl.addEventListener('click', function (e) {
+            e.preventDefault();
+            console.log('Hello link!');
+        });
+
+        document.addEventListener('copy', function (e) {
+            const copiedText = document.getSelection().toString();
+            console.log(copiedText);
+        });
+
+        window.addEventListener('resize', (e) => {
+            console.log('resized');
+        });
+
+        const inputEl = document.querySelector('input');
+        inputEl.addEventListener('input', (e) => {
+            // console.log(e.target.value);
+            e.target.value === '123' ? console.log('Ввел "123"') : console.log('Ввел какую-то шнягу! Надо 123 вводить!');
+        });
+
+        const formEl = document.querySelector('form');
+        const errEl = document.querySelector('.error');
+
+        formEl.addEventListener('submit', (e) => {
+            if (inputEl.value === '') {
+                e.preventDefault();
+                errEl.textContent = 'Поле не должно быть пустым!';
+            } else errEl.textContent = '';
+        })
+
+
+    </script>
+</body>
+
+</html>
