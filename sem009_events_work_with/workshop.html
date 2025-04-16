@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Семинар по работе с событиями</title>
+    <style>
+        .check__error {
+            border: 2px solid red;
+        }
+
+        .label__error {
+            color: red;
+        }
+
+        .pass__error {
+            border: 2px solid red;
+        }
+
+        .pass__right {
+            background-color: forestgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="task1">
+        <form action="" class="form">
+            <h2 class="header">Договор</h2>
+            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Ipsum perspiciatis magnam commodi saepe, optio tenetur esse nesciunt sed,
+                velit est natus dolor non laborum praesentium repellendus iusto, autem nisi. Autem.</p>
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox">Согласен с условиями</label>
+            <!-- <div class="error"></div> -->
+            <button class="button" type="submit"
+                style="display: block; margin-top: 10px; margin-bottom: 10px;">Отправить</button>
+        </form>
+    </div>
+    <div class="task2">
+        <input type="radio" class="radio" id="tea" name="beverages">
+        <label for="tea">Чай</label>
+        <input type="radio" class="radio" id="сoffee" name="beverages">
+        <label for="сoffee">Кофе</label>
+        <button class="button2" type="submit"
+            style="display:block; margin-top: 10px; margin-bottom: 10px;">Отправить</button>
+    </div>
+
+    <div class="task3">
+        <input type="password" class="pass" placeholder="Введите пароль, суки">
+        <button class="button3" style="display: block; margin-top: 10px; margin-bottom: 10px;">Check</button>
+    </div>
+
+    <div class="task4">
+        <input class="input" type="text">
+        <h2 class="input__text">Заголовок</h2>
+    </div>
+
+    <script>
+        /*
+        В html создать элемент checkbox и текст рядом с ним “Согласен с условиями”
+        Добавить кнопку отправить
+        При клике на кнопку отправить нужно проверять выбран ли активным элемент checkbox
+        Если элемент не выбран, добавить текст под чекбоксом “Необходимо согласиться с условиями”
+        */
+
+        const formEl = document.querySelector('.form');
+        const inputEl = document.querySelector('#checkbox');
+        const labelEl = document.querySelector('label');
+        const errEl = document.createElement('div');
+
+        inputEl.addEventListener('click', (e) => {
+            const target = e.target;
+            console.log(target.checked);
+        });
+
+        formEl.addEventListener('submit', (e) => {
+            if (inputEl.checked) {
+                console.log('Отправлено');
+                inputEl.classList.remove('check__error');
+                labelEl.classList.remove('label__error');
+            }
+            else {
+                errEl.textContent = 'Для отправки необходимо согласие';
+                errEl.style.color = 'red';
+                formEl.appendChild(errEl);
+                inputEl.classList.add('check__error');
+                labelEl.classList.add('label__error');
+                e.preventDefault();
+            }
+        });
+
+        /*
+        В html создать 2 элемента радио кнопки (input type=”radio”) и текст “Чай”, “Кофе” соответственно
+        Кнопка отправить
+        Если выбран чай, необходимо вывести сообщение “Чай закончился”
+        Если выбран кофе, необходимо вывести соообщение “кофе закончился”
+        */
+
+        const task2El = document.querySelector('.task2');
+        const radioEls = task2El.querySelectorAll('.radio');
+        const btnEl = task2El.querySelector('.button2');
+
+        btnEl.addEventListener('click', (e) => {
+            for (let i = 0; i < radioEls.length; i++) {
+                if (radioEls[i].checked) {
+                    // console.log(`${radioEls[i].id === 'tea' ? 'Чай' : 'Кофе'} закончился`);
+                    console.log(`${radioEls[i].nextElementSibling.textContent} закончился`);
+                    changeEl(radioEls[i]);
+                    return;
+                }
+            }
+            console.log('Вы не выбрали напиток');
+        });
+
+        const changeEl = (item) => {
+            if (item.checked) {
+                const h3El = document.createElement('h3');
+                h3El.textContent = `${item.nextElementSibling.textContent} закончился`;
+                task2El.insertBefore(h3El, btnEl);
+            }
+        }
+
+        /*
+        Создать поле ввода (пароль)
+        Кнопка отправить
+        Если пользователь вводит текст “пароль” то поле ввода должно быть подсвечено зеленым цветом
+        Если пароль неверный, у поля ввода появляется красная обводка и текст “пароль неверный”
+        */
+
+        const task3El = document.querySelector('.task3');
+        const passEl = task3El.querySelector('.pass');
+        const btn3El = task3El.querySelector('.button3');
+
+        const errMsg = document.createElement('h3');
+        errMsg.textContent = 'Пароль неверный';
+        errMsg.style.color = 'red';
+
+        btn3El.addEventListener('click', (e) => {
+            console.log(passEl.value);
+            if (passEl.value === 'password') {
+                errMsg.remove();
+                passEl.classList.remove('pass__error');
+                passEl.classList.add('pass__right')
+            } else {
+                passEl.classList.remove('pass__right');
+                passEl.classList.add('pass__error');
+                task3El.insertBefore(errMsg, btn3El);
+            }
+        });
+
+        passEl.addEventListener('input', (e) => {
+            console.log(passEl.value);
+            if (passEl.value === 'password') {
+                errMsg.remove();
+                passEl.classList.remove('pass__error');
+                passEl.classList.add('pass__right')
+            } else {
+                passEl.classList.remove('pass__right');
+                passEl.classList.add('pass__error');
+                task3El.insertBefore(errMsg, btn3El);
+            }
+        });
+
+        /*
+        Создать поле ввода и под ним заголовок h1 с текстом “Заголовок”
+        При вводе текста в поле ввода необходимо чтобы текст внутри заголовка менятся на введенный в поле ввода
+        */
+
+        const task4El = document.querySelector('.task4');
+        const inputEl4 = task4El.querySelector('.input');
+        const h2El = task4El.querySelector('.input__text');
+
+        inputEl4.addEventListener('input', (e) => {
+            h2El.textContent = inputEl4.value ? inputEl4.value : h2El.textContent = 'Заголовок';
+        });
+
+
+    </script>
+</body>
+
+</html>

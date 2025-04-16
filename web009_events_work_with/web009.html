@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form>
+        <label><input type="radio" name="propagation-control" value="stopPropagation">Stop propagation</label>
+        <label><input type="radio" name="propagation-control" value="stopImmediatePropagation">Stop immediate
+            propagation</label>
+    </form>
+
+    <ul>
+        <li>Первый</li>
+        <li>Второй</li>
+        <li>Третий</li>
+    </ul>
+
+    <form name="myForm">
+        <label>
+            Текстовый чекбокс: <input type="checkbox">
+        </label>
+    </form>
+
+    <button style="margin-top: 10px;">Кликни меня</button>
+    <button style="display: block; margin-top: 10px;">Click me!</button>
+
+    <pre id="rabbit">
+        |\   /|
+         \|_|/
+         /. .\
+        =\_Y_/=
+         {>o<}
+    </pre>
+    <button>Спрятать кролика</button>
+
+    <script>
+        const form = document.forms[0];
+        const list = document.querySelector('ul');
+        list.addEventListener('click', (e) => {
+            console.log('В первом UL в фазе захвата');
+            const propagationControlMethodName = form.elements['propagation-control'].value
+            if (propagationControlMethodName) {
+                e[propagationControlMethodName]()
+            }
+        }, true);
+        list.addEventListener('click', () => {
+            console.log('Во втором UL в фазе захвата');
+        }, true);
+        list.addEventListener('click', () => {
+            console.log('В первом UL в фазе всплытия');
+        });
+        Array.from(list.children).forEach((child) => {
+            child.addEventListener('click', () => {
+                console.log('В каждом LI в фазе всплытия');
+            });
+        });
+
+        const checkbox = document.querySelector('input[type=checkbox]');
+
+        checkbox.addEventListener('click', (event) => {
+            console.log(event.target.checked); // true;
+            // event.preventDefault();
+            return false;
+        });
+
+        const eventOptions = {bubbles: true, cancelable: true};
+        const event = new Event('click', eventOptions);
+        event.view = window;
+
+        const mouseEvent = new MouseEvent('click', {
+            ...eventOptions,
+            view:  window,
+        });
+
+        document.addEventListener('click', (event) => {
+            console.log(event.isTrusted);
+        });
+
+        const button = document.querySelectorAll('button')[0];
+        button.dispatchEvent(event);
+        button.dispatchEvent(mouseEvent);
+        button.click();
+
+        const eventOptions2 = {bubbles: true, cancelable: true};
+        const event2 = new Event('foo', eventOptions2);
+        event2.detail = {text: 'Произвольный текст'};
+        const customEvent = new CustomEvent('foo', {
+            ...eventOptions2,
+            detail: {text: 'Произвольный текст'},
+        });
+
+        document.addEventListener('foo', (event) => {
+            console.log(event.detail);
+        });
+
+        const button2 = document.querySelectorAll('button')[1];
+        button2.dispatchEvent(event2)
+        button2.dispatchEvent(customEvent);
+
+        const rabbit = document.querySelector('#rabbit');
+        const button3 = document.querySelectorAll('button')[2];
+
+        rabbit.addEventListener('hide', (event) => {
+            if (confirm('Вызвать event.preventDefault()?')) {
+                event.preventDefault();
+            }
+        });
+
+        button3.addEventListener('click', () => {
+            const event3 = new CustomEvent('hide', {cancelable: true});
+            const defaultPrevented = !rabbit.dispatchEvent(event3);
+            if (defaultPrevented) {
+                console.log('Отменено обработчикос событий');
+            } else {
+                rabbit.hidden = true;
+            }
+        });
+
+        
+
+
+        
+
+
+
+    </script>
+</body>
+
+</html>

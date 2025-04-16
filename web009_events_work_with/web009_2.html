@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .select__error {
+            border: 1px solid red;
+        }
+    </style>
+    <title>Лекция по работе с событиями</title>
+</head>
+
+<body>
+    <form action="" class="form">
+        <h2>Форма</h2>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Tempora soluta amet recusandae illum, explicabo natus harum eveniet
+            perspiciatis quaerat quo, ut sit culpa fuga inventore, odio
+            corrupti nesciunt aspernatur exercitationem.</p>
+        <input type="checkbox" id="checkbox" class="check">
+        <label for="checkbox">Согласен с условиями</label>
+        <div class="error"></div>
+        <button type="submit" style="display: block; margin-top: 10px;">Отправить</button>
+    </form>
+    
+    <form action="web009_2.html" class="form2">
+        <div>
+            <label for="select">Город</label>
+            <select name="select" id="select" class="select">
+                <option value="city" class="option">Выберите город...</option>
+                <option value="Krasnodar" class="option">Краснодар</option>
+                <option value="Rostov" class="option">Ростов</option>
+                <option value="Stavropol" class="option">Ставрополь</option>
+                <option value="Sochi" class="option">Сочи</option>
+                <option value="Mykop" class="option">Майкоп</option>
+            </select>
+        </div>
+        <button class="button" type="submit">Отправить</button>
+    </form>
+
+    <script>
+        const inputEl = document.querySelector('.check');
+        const formEl = document.querySelector('form');
+        const errorEl = formEl.querySelector('.error');
+
+        inputEl.addEventListener('click', (e) => {
+            const target = e.target;
+            console.log(target.checked);
+        });
+
+        formEl.addEventListener('submit', (e) => {
+            if (inputEl.checked) сonsole.log('Молодец');
+            else {
+                // console.log('Забыл поставить галочку');
+                errorEl.textContent = 'Для отправки необходимо ваше согласие';
+                errorEl.style.color = 'red';
+                formEl.insertBefore(errorEl, formEl.querySelector('button'));
+                e.preventDefault();
+            }
+        });
+
+        const formEl2 = document.querySelector('.form2');
+        const selectEl = formEl2.querySelector('.select');
+        const buttonEl = formEl2.querySelector('.button');
+
+        buttonEl.addEventListener('click', (e) => {
+            console.log(selectEl.value);
+            e.preventDefault();
+            if (selectEl.value === 'city') {
+                selectEl.classList.add('select__error');
+            } else {
+                selectEl.classList.remove('select__error');
+                return;
+            }
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>
