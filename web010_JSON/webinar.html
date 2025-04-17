@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вэбинар</title>
+</head>
+
+<body>
+    <div class="product">
+        <img src="../web006_DOM_intro/img/photo1.jpg" alt="photo">
+        <div class="product__content">
+            <a class="product__name" href="product.html">Название товара</a>
+            <p class="product__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, perspiciatis!</p>
+            <p class="product__price">55</p>
+        </div>
+    </div>
+    <div class="product">
+        <img src="../web006_DOM_intro/img/photo1.jpg" alt="photo">
+        <div class="product__content">
+            <a class="product__name" href="product.html">Название товара</a>
+            <p class="product__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, perspiciatis!</p>
+            <p class="product__price">55</p>
+        </div>
+    </div>
+
+    <script>
+        /* Не удобно!
+        const productNames = ['Маечка', 'Шапочка'];
+        const productPrices = [70, 14.67];
+        */
+
+        const productData = [
+            {
+                name: 'Маечка',
+                price: 80
+            },
+            {
+                name: 'Шапошка',
+                price: 14.67
+            }
+        ];
+
+        const productNames = document.querySelectorAll('.product__name');
+        const productPrices = document.querySelectorAll('.product__price');
+
+        productNames[0].textContent = productData[0]['name']; // прям как в python (pandas, вроде бы)
+        productPrices[0].textContent = productData[0].price;
+
+        productNames[1].textContent = productData[1].name;
+        productPrices[1].textContent = productData[1].price;
+
+
+    </script>
+</body>
+
+</html>

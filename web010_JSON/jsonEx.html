@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON practice</title>
+</head>
+<body>
+    <p id="user"></p>
+    
+    <script>
+        const obj = {"first_name": "John", "last_name": "Smith", "location": "London"};
+
+        const s = JSON.stringify(obj);
+        const data = JSON.parse(s);
+        // const dataObj = eval(s)
+        console.log(obj, typeof(obj));
+        console.log(s, typeof(s));
+        console.log(data, typeof(data));
+        // console.log(dataObj, typeof(dataObj));
+        
+        document.querySelector('#user').innerHTML = `Name: ${obj.first_name} ${obj.last_name} <br> Location: ${obj.location}`
+
+    </script>
+</body>
+</html>

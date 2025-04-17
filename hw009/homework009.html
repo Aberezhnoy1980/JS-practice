@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 9</title>
+    <style>
+        .error {
+            border: 2px solid red;
+            outline: none;
+            /* Убираем стандартное выделение при
+        фокусе */
+        }
+
+        /* Анимация для появления */
+        .animate_animated {
+            animation-duration: 1s;
+            /* Продолжительность анимации */
+            animation-fill-mode: both;
+            /* Держать финальное
+        состояние анимации */
+        }
+
+        @keyframes fadeInLeftBig {
+            0% {
+                opacity: 0;
+                transform: translateX(-1000px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .animate_fadeInLeftBig {
+            animation-name: fadeInLeftBig;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="from">
+    В инпуте написано: <span></span>
+
+    <br>
+
+    <button class="messageBtn">Показать блок</button>
+    <div class="message">Привет :)</div>
+
+    <br>
+
+    <form action="">
+        <label>
+            Первый инпут:
+            <input type="text" class="form-control">
+        </label>
+        <br>
+        <br>
+        <label>Второй инпут:
+            <select class="form-control">
+                <option value=""></option>
+                <option value="1">Один</option>
+                <option value="2">Два</option>
+            </select>
+        </label>
+        <br>
+        <br>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        "use strict";
+        /*
+        1. При изменении значения в <input> с id="from", значение, содержащееся
+        в нем, должно моментально отображаться в <span>.
+        ○ Это значит, что при каждом изменении текста в инпуте, текст в <span>
+        должен обновляться соответственно.
+        */
+
+        const in1El = document.querySelector('#from');
+        const spanEl = document.querySelector('span');
+
+        in1El.addEventListener('input', (e) => {
+            spanEl.textContent = in1El.value;
+        });
+
+        /*
+        2. При клике на кнопку с классом messageBtn необходимо выполнить
+        следующие действия для элемента с классом message:
+        ○ Добавить два класса: animate_animated и animate_fadeInLeftBig.
+        ○ Установить стиль visibility в значение 'visible'.
+        */
+
+        const msgBtnEl = document.querySelector('.messageBtn');
+        const msgEl = document.querySelector('.message');
+        console.log(msgEl);
+
+        msgBtnEl.addEventListener('click', (e) => {
+            msgEl.classList.add('animate_animated', 'animate_fadeInLeftBig');
+            msgEl.style.visibility = 'visible';
+        });
+
+        /*
+        3. При отправке формы проверьте, заполнены ли все поля.
+        ○ Если какое-либо поле не заполнено, форма не должна отправляться.
+        ○ Незаполненные поля должны быть подсвечены (добавлен класс error).
+        ○ Как только пользователь начинает заполнять поле, выполните проверку:
+        ■ Если поле пустое, подсветите его (добавьте класс error).
+        ■ Если поле заполнено, уберите подсветку (удалите класс error).
+        */
+
+        const formEl = document.querySelector('form');
+        const inputFields = formEl.querySelectorAll('.form-control');
+        const submitBtn = formEl.querySelector('button');
+
+        /* 
+        submitBtn.addEventListener('click', (e) => {
+            console.log('Pushed');
+            inputFields.forEach((field) => {
+                if (field.value === '') {
+                    field.classList.add('error');
+                    e.preventDefault();
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+        });
+        */
+
+        formEl.addEventListener('submit', (e) => {
+            let isValid = true;
+
+            inputFields.forEach(field => {
+                if (field.value.trim() === '') {
+                    field.classList.add('error');
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        inputFields.forEach(field => {
+            field.addEventListener('input', () => {
+                if (field.value.trim() === '') {
+                    field.classList.add('error');
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
