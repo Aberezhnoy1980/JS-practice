@@ -1,0 +1,38 @@
+[
+	{
+		"img_url": "../img/p1.jpg",
+		"title": "First product",
+		"description": "First description",
+		"price": "$111.00"
+	},
+	{
+		"img_url": "../img/p2.png",
+		"title": "Second product",
+		"description": "Second description",
+		"price": "$222.00"
+	},
+	{
+		"img_url": "../img/p3.png",
+		"title": "Third product",
+		"description": "Third description",
+		"price": "$333.00"
+	},
+	{
+		"img_url": "../img/p4.png",
+		"title": "Forth product",
+		"description": "Forth description",
+		"price": "$444.00"
+	},
+	{
+		"img_url": "../img/p5.png",
+		"title": "Fifth product",
+		"description": "Fifth description",
+		"price": "$555.00"
+	},
+	{
+		"img_url": "../img/p6.png",
+		"title": "Sixth product",
+		"description": "Sixth description",
+		"price": "$777.00"
+	}
+]

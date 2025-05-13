@@ -1,0 +1,14 @@
+@mixin flex-setting($direction, $justifyContent, $alignItems, $wrap, $gap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+    flex-wrap: $wrap;
+    gap: $gap;
+}
+
+@mixin button-hover() {
+    color: #fff;
+    background-color: $colorSelectSite;
+    border-color: $colorSelectSite;
+}
