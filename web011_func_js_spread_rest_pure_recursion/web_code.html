@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вебинар: Функциональный javascript</title>
+</head>
+
+<body>
+    <div class="spread" style="border: 1px solid #222; background-color: #ccc; padding-left: 5px;">
+        <h2 class="spread__title">Spread operator</h2>
+        <h3 class="spread__task-1">Task 1: find maximum with spread</h3>
+        <p class="spread__task-1-solve"></p>
+        <h3 class="spread__task-2">Task 2: find maximum with rest</h3>
+        <p class="spread__task-2-soslve"></p>
+    </div>
+    <div class="product">
+        <img src="" alt="" class="product__img">
+        <div class="product__content">
+            <h2 class="product__name"></h2>
+            <p class="product__text"></p>
+        </div>
+    </div>
+    <script>
+        // spread
+        const arr = [1, 5];
+
+        function max(param1, param2) {
+            if (param1 > param2) {
+                return param1;
+            } else if (param1 < param2) {
+                return param2;
+            } else {
+                return 'Числа равны';
+            }
+        }
+
+        console.log(max(3, 3));
+
+        const res1 = max(...arr);
+        console.log(res1);
+        document.querySelector('.spread__task-1-solve').innerHTML = res1;
+        console.log(Math.max(...arr));
+
+        // rest
+        const arr2 = [1, 3, 5, 7, 10];
+
+        function max2(param1, param2, ...rest) {
+            if (param1 > param2) {
+                console.log(param1);
+            } else {
+                console.log(param2);
+            }
+            console.log(rest);
+        }
+
+        console.log(max2(...arr2));
+    </script>
+    <script src="spread.js"></script>
+    <script src="pure_functions_and_immutability.js"></script>
+    <script src="circuits.js"></script>
+    <script>
+        // 4! = 1 * 2 * 3 * 4
+        // 3! = 1 * 2 * 3
+        // 2! = 1 * 2
+
+        // Общая формула: n! = (n - 1)! * n
+        function factorial(n) {
+            if (n === 1) return 1;
+            return factorial(n - 1) * n;
+        }
+
+        console.log(factorial(4)); // 24
+        console.log(factorial(3)); // 6
+        console.log(factorial(5)); // 120
+    </script>
+    <script src="recursion.js"></script>
+</body>
+
+</html>
