@@ -43,7 +43,7 @@ function addToCart(productId) {
 
 document.querySelector(".cart").addEventListener("click", (event) => {
 	if (event.target.closest(".delete")) {
-		event.target.closest("li").remove();
+		event.target.closest("li")?.remove();
 	}
 });
 
